@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "sourceMap": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+        "*": [ "node_modules/@types/*", "*"]
+    },
+    "types": ["@types/pkijs"]
+  }
+}

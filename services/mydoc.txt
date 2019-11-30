@@ -1,0 +1,4 @@
+npm init-y
+npm install express body-parser mongoose express-session bcryptjs
+tsc --init
+npm install @types/node @types/express --save-dev
