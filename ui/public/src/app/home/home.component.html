@@ -1,1 +1,34 @@
-<p>home works!</p>
+<div>
+    <div>Select a version:</div>
+    <div >
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="KJV" />KJV &nbsp;
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="NKJV" />NKJV &nbsp;
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="ESV-2016" />NASB &nbsp;
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="ESV-2016" />ESV &nbsp;
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="ESV-2001" />ESV-2001 &nbsp;
+        <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="NIV-1984" />NIV-1984 &nbsp;
+    </div>
+
+    <!-- <select [(ngModel)]="version">
+        <option value="KJV">KJV</option>
+    </select> -->
+</div>
+<div>
+    <div>Select Content:</div>
+    <div *ngFor = "let book of bookArr">
+        <input type="checkbox" name="bibleVersion" value="KJV" />KJV &nbsp;
+        <input type="checkbox" name="bibleVersion" value="NKJV" />NKJV &nbsp;
+        <input type="checkbox" name="bibleVersion" value="ESV-2016" />NASB &nbsp;
+        <input type="checkbox" name="bibleVersion" value="ESV-2016" />ESV &nbsp;
+        <input type="checkbox" name="bibleVersion" value="ESV-2001" />ESV-2001 &nbsp;
+        <input type="checkbox" name="bibleVersion" value="NIV-1984" />NIV-1984 &nbsp;
+    </div>
+    
+    <!-- <select [(ngModel)]="version">
+        <option value="KJV">KJV</option>
+    </select> -->
+</div>
+
+
+<p>{{version}}</p>
+<p>{{booksChosen}}</p>
