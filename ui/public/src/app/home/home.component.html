@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="showSelector">
     <div>Select a version:</div>
     <div >
         <input [(ngModel)]="versionChosen" type="radio" name="bibleVersion" value="KJV" />KJV &nbsp;
@@ -12,23 +12,21 @@
     <!-- <select [(ngModel)]="version">
         <option value="KJV">KJV</option>
     </select> -->
-</div>
-<div>
+
+
     <div>Select Content:</div>
-    <div *ngFor = "let book of bookArr">
-        <input type="checkbox" name="bibleVersion" value="KJV" />KJV &nbsp;
-        <input type="checkbox" name="bibleVersion" value="NKJV" />NKJV &nbsp;
-        <input type="checkbox" name="bibleVersion" value="ESV-2016" />NASB &nbsp;
-        <input type="checkbox" name="bibleVersion" value="ESV-2016" />ESV &nbsp;
-        <input type="checkbox" name="bibleVersion" value="ESV-2001" />ESV-2001 &nbsp;
-        <input type="checkbox" name="bibleVersion" value="NIV-1984" />NIV-1984 &nbsp;
+    <div *ngFor = "let book of books66i; let i = index">
+        <input type="checkbox" [(ngModel)]="book[1]" />{{book[0]}} &nbsp;
+        <div *ngIf="book[1]">
+            <div *ngFor="let chapter of books66i[i][2]; let j = index" id="inlineblock" >
+                <input type="checkbox" [(ngModel)]="books66i[i][2][j]" >{{j + 1}} &nbsp;
+            </div>
+        </div>
     </div>
+    <button (click)="begin()">Begin</button>
+</div>
+<div *ngIf="!showSelector">
     
-    <!-- <select [(ngModel)]="version">
-        <option value="KJV">KJV</option>
-    </select> -->
 </div>
 
 
-<p>{{version}}</p>
-<p>{{booksChosen}}</p>

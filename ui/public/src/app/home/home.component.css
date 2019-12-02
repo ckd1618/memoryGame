@@ -1,0 +1,9 @@
+#inlineblock {
+    display: inline-block;
+}
+.inlineblock {
+    display: inline-block
+}
+.block {
+    display: block;
+}
