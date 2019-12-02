@@ -26,6 +26,14 @@
     <button (click)="begin()">Begin</button>
 </div>
 <div *ngIf="!showSelector">
+    <button (click)="verseRenderer()">Next Verse</button>
+    <div>
+        {{verseToDisplay1}}<b>{{verseToDisplay2}}</b>{{verseToDisplay3}}
+    </div>
+    <button (click)="showVerse()">Show Verse</button>
+    <div *ngIf="showVerseVar">
+        {{verseLoc}}
+    </div>
     
 </div>
 
