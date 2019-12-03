@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   verseToDisplay3: string;
   verseLoc: string = "";
   showVerseVar: boolean = false;
+  noVersesSelected: string = "";
 
 
   constructor() { }
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit {
     this.books66i[i][2][j] = !this.books66i[i][2][j];
   }
   begin(){
-    this.showSelector = false;
+    
     this.userVerseObjPopulator();
   }
   userVerseObjPopulator() {
@@ -64,7 +65,14 @@ export class HomeComponent implements OnInit {
         }
       }
     }
-    this.verseRenderer();
+    if (this.userVerseObjCount !== 0){
+      this.showSelector = false;
+      this.noVersesSelected = "";
+      this.verseRenderer();
+    }else{
+      this.noVersesSelected = "Please make a selection in order to begin."
+    }
+    
     // Math.floor(Math.random() * this.userVerseObjCount)+1
     // this.KJVarrayi[three[0]][0]
   }
@@ -107,9 +115,9 @@ export class HomeComponent implements OnInit {
   NKJVrenderer(three, random1) {
     // console.log(three);
     // console.log(three[2], this.KJVarrayi[three[0]][1][three[1]-1]);
-    this.verseToDisplay1 = three[2] === 1 ? "" : this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]-2].text;
-    this.verseToDisplay2 = this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]-1].text;
-    this.verseToDisplay3 = three[2] === this.KJVarrayi[three[0]][1][three[1]-1] ? "" : this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]].text;
+    this.verseToDisplay1 = three[2] === 1 ? "" : this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]-2].text + " ";
+    this.verseToDisplay2 = this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]-1].text + " ";
+    this.verseToDisplay3 = three[2] === this.KJVarrayi[three[0]][1][three[1]-1] ? "" : this.NKJVi.books[three[0]-1].chapters[three[1]-1].verses[three[2]].text + " ";
     this.verseLoc = `${this.KJVarrayi[three[0]][0]} ${three[1]}:${three[2]}`;
     //code below is if you wish to automatically remove the verse after it is displayed
     var doneVerseObjNum = this.userVerseObjCount--;
@@ -119,5 +127,20 @@ export class HomeComponent implements OnInit {
 
   showVerse() {
     this.showVerseVar = !this.showVerseVar;
+  }
+
+  toggleChapters(i) {
+    var length = this.books66i[i][2].length;
+    var arrOfTF = [];
+
+    for (let idx = 0; idx < length; idx++) {
+      if (this.books66i[i][3]) {
+        arrOfTF.push(false);
+      }else{
+        arrOfTF.push(true);
+      }
+    }
+    this.books66i[i][3] = !this.books66i[i][3];
+    this.books66i[i][2] = arrOfTF;
   }
 }
