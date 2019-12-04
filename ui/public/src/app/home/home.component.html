@@ -32,7 +32,9 @@
     <div *ngIf="!showSelector">
         <button (click)="verseRenderer()">Next Verse</button>
         <div>
-            {{verseToDisplay1}}<b>{{verseToDisplay2}}</b>{{verseToDisplay3}}
+            {{verseToDisplay1}}<br>
+            <b>{{verseToDisplay2}}</b><br>
+            {{verseToDisplay3}}
         </div>
         <button (click)="showVerse()">Show Verse</button>&nbsp;
         <button (click)="showChapter()">Show Chapter</button>&nbsp;
