@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { KJV } from '../../assets/bibles/KJV';
 import { NKJV } from '../../assets/bibles/NKJV';
 import { KJVarray, books66, bookNum } from '../../assets/bibles/KJVarray';
+import { read } from 'fs';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,13 @@ export class HomeComponent implements OnInit {
   showBookVar: boolean = false;
   fullTextChapter;
   showChapterVar: boolean = false;
+  inputBook: string;
+  inputChapter: number;
+  inputVerse: number;
+  score: number = 0;
+  denominator: number = 0;
+  books66iSaved;
+  // initialNextVerse: boolean = false;
 
 
   constructor() { }
@@ -54,8 +62,16 @@ export class HomeComponent implements OnInit {
     this.books66i[i][2][j] = !this.books66i[i][2][j];
   }
   begin(){
+    this.books66iSaved = this.books66i;
     this.userVerseObjPopulator();
   }
+  restart(){
+    this.books66i = this.books66iSaved;
+    this.score = 0;
+    this.denominator = 0;
+    this.userVerseObjPopulator();
+  }
+
   userVerseObjPopulator() {
     this.userVerseObjCount = 0;
     this.userVerseObj = {};
@@ -81,7 +97,10 @@ export class HomeComponent implements OnInit {
     
   }
   verseRenderer() {
+    // if (this.initialNextVerse) this.checkAnswer();
     this.showVerseVar = false;
+    this.showChapterVar = false;
+    this.showBookVar = false;
     if (this.userVerseObjCount === 0) {
       this.verseToDisplay1 = "";
       this.verseToDisplay2 = "***All verses have been shown***";
@@ -211,6 +230,41 @@ export class HomeComponent implements OnInit {
       }
     }else {
 
+    }
+  }
+
+  checkAnswer() {
+    console.log(this.inputBook, this.bookLoc);
+    console.log(this.inputChapter, this.chapterLocNum);
+    console.log(this.inputVerse, this.verseOnlyLocNum);
+    if (this.verseToDisplay2 === "***All verses have been shown***") return ;
+    if (this.inputBook === this.bookLoc) {
+      this.score++;
+    }
+    if (this.inputChapter === this.chapterLocNum) {
+      this.score++;
+    }
+    if (this.inputVerse === this.verseOnlyLocNum) {
+      this.score++;
+    }
+    this.denominator = this.denominator + 3;
+    this.verseRenderer();
+  }
+
+  verseColor(j) {
+    var remainder = j%10;
+    switch (remainder) {
+      case 1: return "color1";
+      case 2: return "color2";
+      case 3: return "color3";
+      case 4: return "color4";
+      case 5: return "color5";
+      case 6: return "color6";
+      case 7: return "color7";
+      case 8: return "color8";
+      case 9: return "color9";
+      case 0: return "color10";
+      default: return "black";
     }
   }
   //esv to be added

@@ -16,3 +16,42 @@
 .marginbottom0 {
     margin-bottom: 0px;
 }
+
+
+.color1 {
+    color: darkred;
+}
+.color2 {
+    color: darkorange;
+}
+.color3 {
+    color: darkgoldenrod;
+}
+.color4 {
+    color: darkgreen;
+}
+.color5 {
+    color: deepskyblue;
+}
+.color6 {
+    color: indigo;
+}
+.color7 {
+    color: darkviolet;
+}
+.color8 {
+    color: deeppink;
+}
+.color9 {
+    color: brown;
+}
+.color10 {
+    color: blue;
+}
+.black {
+    color: black;
+}
+
+.inputWidth {
+    width: 100px;
+}
