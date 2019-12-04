@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
   showVerseVar: boolean = false;
   noVersesSelected: string = "";
   showBookVar: boolean = false;
+  fullTextChapter;
+  showChapterVar: boolean = false;
 
 
   constructor() { }
@@ -85,7 +87,9 @@ export class HomeComponent implements OnInit {
       this.verseToDisplay2 = "***All verses have been shown***";
       this.verseToDisplay3 = "";
       this.verseLoc = "";
-      return
+      this.chapterLocNum = null;
+      this.verseOnlyLocNum = null;
+      return ;
     }
     var random1 = Math.floor(Math.random() * this.userVerseObjCount)+1;
     var three = this.userVerseObj[random1];
@@ -118,6 +122,9 @@ export class HomeComponent implements OnInit {
     var doneVerseObjNum = this.userVerseObjCount--;
     this.userVerseObj[random1] = this.userVerseObj[doneVerseObjNum];
     delete this.userVerseObj[doneVerseObjNum];
+
+    this.showChapterLogic();
+    this.showBookLogic();
   }
 
   NKJVrenderer(three, random1) {
@@ -137,6 +144,9 @@ export class HomeComponent implements OnInit {
     var doneVerseObjNum = this.userVerseObjCount--;
     this.userVerseObj[random1] = this.userVerseObj[doneVerseObjNum];
     delete this.userVerseObj[doneVerseObjNum];
+
+    this.showChapterLogic();
+    this.showBookLogic();
   }
 
   showVerse() {
@@ -164,6 +174,9 @@ export class HomeComponent implements OnInit {
       return ;
     }
     this.showBookVar = true;
+    this.showBookLogic();
+  }
+  showBookLogic() {
     if (this.versionChosen === 'NKJV'){
       this.fullText = [];
       var NKJVchaptersNum: number = this.NKJVi.books[parseInt(this.bookNumi[this.bookLoc])-1].chapters.length;
@@ -174,6 +187,27 @@ export class HomeComponent implements OnInit {
           tempChapter.push(currentChapter[j].text);
         }
         this.fullText.push(tempChapter);
+      }
+    }else {
+
+    }
+  }
+  showChapter(){
+    if (this.showChapterVar === true) {
+      this.fullTextChapter = [];
+      this.showChapterVar = false;
+      return ;
+    }
+    this.showChapterVar = true;
+    this.showChapterLogic();
+  }
+  showChapterLogic() {
+    if (this.versionChosen === 'NKJV'){
+      this.fullTextChapter = [];
+      console.log(this.chapterLocNum);
+      var currentChapter = this.NKJVi.books[parseInt(this.bookNumi[this.bookLoc])-1].chapters[this.chapterLocNum-1].verses
+      for (let j = 0; j < currentChapter.length; j++) {
+        this.fullTextChapter.push(currentChapter[j].text);
       }
     }else {
 

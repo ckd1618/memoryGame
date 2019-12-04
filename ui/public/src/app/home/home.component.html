@@ -32,9 +32,9 @@
     <div *ngIf="!showSelector">
         <button (click)="verseRenderer()">Next Verse</button>
         <div>
-            {{verseToDisplay1}}<br>
+            <div *ngIf="verseToDisplay1 !== ''">{{verseToDisplay1}}<br></div>
             <b>{{verseToDisplay2}}</b><br>
-            {{verseToDisplay3}}
+            <div *ngIf="verseToDisplay3 !== ''"></div>{{verseToDisplay3}}
         </div>
         <button (click)="showVerse()">Show Verse</button>&nbsp;
         <button (click)="showChapter()">Show Chapter</button>&nbsp;
@@ -42,8 +42,13 @@
         <div *ngIf="showVerseVar">
             {{verseLoc}}
         </div>
+        <div *ngIf="showChapterVar && versionChosen ==='NKJV'">
+            <p class="block underline marginbottom0">{{bookLoc}} {{chapterLocNum}}</p>
+            <div *ngFor="let chapterVerse of fullTextChapter; let j = index">
+                <p class="block marginbottom0" [ngStyle]="verseOnlyLocNum === j+1 ? {'font-weight': 'bold'} : ''">{{chapterLocNum}}:{{j+1}}) {{chapterVerse}}</p>
+            </div>
+        </div>
         <div *ngIf="showBookVar && versionChosen ==='NKJV'">
-            
             <div *ngFor="let chapter of fullText; let i = index">
                 <p class=" block underline marginbottom0">{{bookLoc}} {{i+1}}</p>
                 <div *ngFor="let verse of fullText[i]; let j = index">
