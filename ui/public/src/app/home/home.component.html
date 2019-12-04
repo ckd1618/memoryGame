@@ -42,7 +42,7 @@
         <div *ngIf="showVerseVar">
             {{verseLoc}}
         </div>
-        <div *ngIf="showChapterVar && versionChosen ==='NKJV'">
+        <div *ngIf="showChapterVar && chapterLocNum && versionChosen ==='NKJV'">
             <p class="block underline marginbottom0">{{bookLoc}} {{chapterLocNum}}</p>
             <div *ngFor="let chapterVerse of fullTextChapter; let j = index">
                 <p class="block marginbottom0" [ngStyle]="verseOnlyLocNum === j+1 ? {'font-weight': 'bold'} : ''">{{chapterLocNum}}:{{j+1}}) {{chapterVerse}}</p>
