@@ -1,9 +1,18 @@
 #inlineblock {
     display: inline-block;
 }
+#block {
+    display: block;
+}
 .inlineblock {
     display: inline-block
 }
 .block {
     display: block;
+}
+.underline {
+    text-decoration: underline;
+}
+.marginbottom0 {
+    margin-bottom: 0px;
 }

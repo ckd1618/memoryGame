@@ -34,9 +34,20 @@
         <div>
             {{verseToDisplay1}}<b>{{verseToDisplay2}}</b>{{verseToDisplay3}}
         </div>
-        <button (click)="showVerse()">Show Verse</button>
+        <button (click)="showVerse()">Show Verse</button>&nbsp;
+        <button (click)="showChapter()">Show Chapter</button>&nbsp;
+        <button (click)="showBook()">Show Book</button>
         <div *ngIf="showVerseVar">
             {{verseLoc}}
+        </div>
+        <div *ngIf="showBookVar && versionChosen ==='NKJV'">
+            
+            <div *ngFor="let chapter of fullText; let i = index">
+                <p class=" block underline marginbottom0">{{bookLoc}} {{i+1}}</p>
+                <div *ngFor="let verse of fullText[i]; let j = index">
+                    <p class="block marginbottom0" [ngStyle]="chapterLocNum === i+1 && verseOnlyLocNum === j+1 ? {'font-weight': 'bold'} : ''">{{i+1}}:{{j+1}}) {{verse}}</p>
+                </div>
+            </div>
         </div>
         
     </div>
