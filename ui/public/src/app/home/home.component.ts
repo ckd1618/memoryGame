@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KJV } from '../../assets/bibles/KJV';
 import { NKJV } from '../../assets/bibles/NKJV';
-import { KJVarray, books66, bookNum } from '../../assets/bibles/KJVarray';
-import { read } from 'fs';
+import { KJVarray, books66, bookNum, userNotes } from '../../assets/bibles/KJVarray';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +40,8 @@ export class HomeComponent implements OnInit {
   score: number = 0;
   denominator: number = 0;
   books66iSaved;
+  userNotesi = userNotes;
+  showNotesVar: boolean = false;
   // initialNextVerse: boolean = false;
 
 
@@ -77,7 +78,7 @@ export class HomeComponent implements OnInit {
     this.userVerseObj = {};
     for (let i = 0; i < this.books66i.length; i++) {
       if (this.books66i[i][1]) {
-        for (let j = 0; j < this.KJVarrayi[i][1].length; j++) {
+        for (let j = 0; j < this.KJVarrayi[(i+1).toString()][1].length; j++) {
           if(this.books66i[i][2][j]) {
             for (let k = 1; k <= this.KJVarrayi[i+1][1][j]; k++) {
               this.userVerseObjCount++;
@@ -266,6 +267,16 @@ export class HomeComponent implements OnInit {
       case 0: return "color10";
       default: return "black";
     }
+  }
+  showNotes() {
+    this.showNotesVar = !this.showNotesVar;
+  }
+  chapterCheckboxTF(i,j) {
+    this.books66i[i][2][j] = !this.books66i[i][2][j];
+  }
+
+  getIndex(index) {
+    return index;
   }
   //esv to be added
 }

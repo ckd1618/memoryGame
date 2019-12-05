@@ -19,11 +19,12 @@
 
         <div>Select Content:</div>
         <div *ngFor = "let book of books66i; let i = index">
+            <!-- {{books66i[i] | json}} -->
             <input type="checkbox" [(ngModel)]="book[1]" />{{book[0]}} &nbsp;
             <div *ngIf="book[1]">
                 <button (click)="toggleChapters(i)">Select/Deselect All</button>
-                <div *ngFor="let chapter of books66i[i][2]; let j = index" id="inlineblock" >
-                    <input type="checkbox" [(ngModel)]="books66i[i][2][j]" >{{j + 1}} &nbsp;
+                <div *ngFor="let chapter of book[2]; let j = index; trackBy: getIndex" id="inlineblock" >
+                    <input type="checkbox" [ngModel]="chapter" (click)="chapterCheckboxTF(i, j)">{{j + 1}} &nbsp;
                 </div>
             </div>
         </div>
@@ -41,9 +42,11 @@
             <b>{{verseToDisplay2}}</b><br>
             <div *ngIf="verseToDisplay3 !== ''"></div>{{verseToDisplay3}}
         </div>
+        <button (click)="showNotes()">Show Notes</button>&nbsp;
         <button (click)="showVerse()">Show Verse</button>&nbsp;
         <button (click)="showChapter()">Show Chapter</button>&nbsp;
         <button (click)="showBook()">Show Book</button>
+        <textarea *ngIf="showNotesVar" [(ngModel)]="userNotesi[bookLocNum-1][chapterLocNum-1]" cols="30" rows="10"></textarea>
         <div *ngIf="showVerseVar">
             {{verseLoc}}
         </div>
