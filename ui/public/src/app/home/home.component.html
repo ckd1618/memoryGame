@@ -1,6 +1,4 @@
 <div style="padding: 15px;">
-
-
     <div *ngIf="showSelector">
         <div>Select a version:</div>
         <div >
@@ -16,7 +14,6 @@
             <option value="KJV">KJV</option>
         </select> -->
 
-
         <div>Select Content:</div>
         <div *ngFor = "let book of books66i; let i = index">
             <!-- {{books66i[i] | json}} -->
@@ -31,12 +28,15 @@
         <button (click)="begin()">Begin</button> {{noVersesSelected}}
     </div>
     <div *ngIf="!showSelector">
-        <button (click)="checkAnswer()" >Next Verse</button>&nbsp;
+        
         <input class="inputWidth" type="text" width="50%" placeholder="John" [(ngModel)]="inputBook" (keydown.enter)="checkAnswer()">
         <input class="inputWidth" type="number" placeholder="3" [(ngModel)]="inputChapter" (keydown.enter)="checkAnswer()">
         <input class="inputWidth" type="number" placeholder="16" [(ngModel)]="inputVerse" (keydown.enter)="checkAnswer()">&nbsp;
+        <button (click)="checkAnswer()" >Next Verse</button>&nbsp;
         {{(score/3).toFixed(2)}}/{{denominator/3}} = {{denominator !== 0 ? (score/denominator*100).toFixed(2) : 0}}%
         <button (click)="restart()">Restart</button>
+
+
         <div>
             <div *ngIf="verseToDisplay1 !== ''">{{verseToDisplay1}}<br></div>
             <b>{{verseToDisplay2}}</b><br>
@@ -46,7 +46,7 @@
         <button (click)="showVerse()">Show Verse</button>&nbsp;
         <button (click)="showChapter()">Show Chapter</button>&nbsp;
         <button (click)="showBook()">Show Book</button>
-        <textarea *ngIf="showNotesVar" [(ngModel)]="userNotesi[bookLocNum-1][chapterLocNum-1]" cols="30" rows="10"></textarea>
+        <textarea class="block overflowauto" *ngIf="showNotesVar" [(ngModel)]="userNotesi[bookLocNum-1][chapterLocNum-1]" cols="150" rows="12"></textarea>
         <div *ngIf="showVerseVar">
             {{verseLoc}}
         </div>

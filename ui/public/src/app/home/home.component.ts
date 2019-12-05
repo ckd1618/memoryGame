@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
     this.bookLoc = this.KJVarrayi[three[0]][0];
     this.chapterLoc = three[1];
     this.verseOnlyLoc = three[2];
-    this.bookLocNum = parseInt(this.KJVarrayi[three[0]][0]);
+    this.bookLocNum = parseInt(three[0]);
     this.chapterLocNum = parseInt(three[1]);
     this.verseOnlyLocNum = parseInt(three[2]);
     //code below is if you wish to automatically remove the verse after it is displayed
@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit {
     this.bookLoc = this.KJVarrayi[three[0]][0];
     this.chapterLoc = three[1];
     this.verseOnlyLoc = three[2];
-    this.bookLocNum = parseInt(this.KJVarrayi[three[0]][0]);
+    this.bookLocNum = parseInt(three[0]);
     this.chapterLocNum = parseInt(three[1]);
     this.verseOnlyLocNum = parseInt(three[2]);
     //code below is if you wish to automatically remove the verse after it is displayed
@@ -239,7 +239,10 @@ export class HomeComponent implements OnInit {
     console.log(this.inputChapter, this.chapterLocNum);
     console.log(this.inputVerse, this.verseOnlyLocNum);
     if (this.verseToDisplay2 === "***All verses have been shown***") return ;
-    if (this.inputBook === this.bookLoc) {
+    var inputBook2 = this.inputBook.toLowerCase().replace(/\s/g, '').substring(0,3);
+    var bookLoc2 = this.bookLoc.toLowerCase().replace(/\s/g, '').substring(0,3);
+    console.log(inputBook2, bookLoc2);
+    if (inputBook2 === bookLoc2) {
       this.score++;
     }
     if (this.inputChapter === this.chapterLocNum) {
