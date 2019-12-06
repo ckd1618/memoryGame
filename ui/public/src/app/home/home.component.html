@@ -46,7 +46,7 @@
         <button (click)="showVerse()">Show Verse</button>&nbsp;
         <button (click)="showChapter()">Show Chapter</button>&nbsp;
         <button (click)="showBook()">Show Book</button>
-        <textarea class="block overflowauto" *ngIf="showNotesVar" [(ngModel)]="userNotesi[bookLocNum-1][chapterLocNum-1]" cols="150" rows="12"></textarea>
+        <textarea class="block overflowauto" *ngIf="showNotesVar" [(ngModel)]="userNotesi[bookLocNum-1][chapterLocNum-1]" cols="150" rows="3"></textarea>
         <div *ngIf="showVerseVar">
             {{verseLoc}}
         </div>

@@ -1,7 +1,7 @@
 import * as express from 'express';
 var app = express();
-import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
+import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
 
 // app.use(express.static(path.join(__dirname, '/client/static')));
