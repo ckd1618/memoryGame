@@ -3,6 +3,9 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cors = require('cors')
+
+app.use(cors());
 
 // app.use(express.static(path.join(__dirname, '/client/static')));
 app.use(express.static( __dirname + '/public/dist/public' ));
@@ -17,7 +20,7 @@ app.use(session({
     }
 }))
 
-mongoose.connect('mongodb://localhost/apmt', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/memoryGame', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 require('./server/config/mongoose.js');

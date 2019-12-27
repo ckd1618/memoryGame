@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 import { KJV } from '../../assets/bibles/KJV';
 import { NKJV } from '../../assets/bibles/NKJV';
+import { Router } from '@angular/router';
 import { KJVarray, books66, bookNum, userNotes } from '../../assets/bibles/KJVarray';
 
 @Component({
@@ -45,7 +47,7 @@ export class HomeComponent implements OnInit {
   // initialNextVerse: boolean = false;
 
 
-  constructor() { }
+  constructor(private _httpService: HttpService, private _router: Router) { }
 
   ngOnInit() {
 
@@ -62,10 +64,32 @@ export class HomeComponent implements OnInit {
   chapterCheckbox(i, j) {
     this.books66i[i][2][j] = !this.books66i[i][2][j];
   }
-  begin(){
+  begin = () => {
     this.books66iSaved = this.books66i;
-    this.userVerseObjPopulator();
+
+    this.mongoUserNotesi();
+
+    
+    setTimeout(() => { 
+      this.userVerseObjPopulator();
+     }, 1000);
+
   }
+
+  async mongoUserNotesi() {
+    var tempObservable = this._httpService.mongoUserNotesi();
+    await tempObservable.subscribe((data: any) => {
+      if(data!= null && !data.errmsg && !data.error && !data.errors){
+        // this._router.navigate(['/home']);
+        console.log('mongoUserNotesi', data);
+        this.userNotesi = data.content;
+      }else {
+        alert("Error. Failed to retrieve notes from the database. Utilizing empty set of notes.")
+        // this.message = 'Error. Submission failed to store.';
+      }
+    })
+  }
+
   restart(){
     this.books66i = this.books66iSaved;
     this.score = 0;
@@ -73,7 +97,7 @@ export class HomeComponent implements OnInit {
     this.userVerseObjPopulator();
   }
 
-  userVerseObjPopulator() {
+  userVerseObjPopulator = () => {
     this.userVerseObjCount = 0;
     this.userVerseObj = {};
     for (let i = 0; i < this.books66i.length; i++) {
@@ -239,8 +263,8 @@ export class HomeComponent implements OnInit {
     console.log(this.inputChapter, this.chapterLocNum);
     console.log(this.inputVerse, this.verseOnlyLocNum);
     if (this.verseToDisplay2 === "***All verses have been shown***") return ;
-    var inputBook2 = this.inputBook.toLowerCase().replace(/\s/g, '').substring(0,3);
-    var bookLoc2 = this.bookLoc.toLowerCase().replace(/\s/g, '').substring(0,3);
+    var inputBook2 = this.inputBook ? this.inputBook.toLowerCase().replace(/\s/g, '').substring(0,3) : null;
+    var bookLoc2 = this.bookLoc ? this.bookLoc.toLowerCase().replace(/\s/g, '').substring(0,3) : null;
     console.log(inputBook2, bookLoc2);
     if (inputBook2 === bookLoc2) {
       this.score++;
@@ -282,4 +306,38 @@ export class HomeComponent implements OnInit {
     return index;
   }
   //esv to be added, possibly 2011 version
+
+  sendLoadout() {
+    var tempObservable = this._httpService.sendLoadout(this.books66iSaved);
+    tempObservable.subscribe((data: any) => {
+      console.log('sendLoadout response:', data);
+      if(!data && !data.errmsg && !data.error && !data.errors){
+        // this._router.navigate(['/home']);
+        alert("Success. Your loadout is added to the collection.")
+      }else {
+        alert("Error. Submission failed to store.")
+        // this.message = 'Error. Submission failed to store.';
+      }
+    })
+  }
+
+  sendProjectData() {
+    var myData = {'books66iSaved': this.books66iSaved, 'userNotesi': this.userNotesi};
+    var tempObservable = this._httpService.sendProjectData(myData);
+    tempObservable.subscribe((data: any) => {
+      console.log('sendProjectData response:', data);
+      if(data != null && data != undefined && !data.errmsg && !data.error && !data.errors){
+        // this._router.navigate(['/home']);
+        alert("Success. Your notes are now stored.")
+        console.log(data);
+      }else {
+        alert("Error. Submission failed to store.")
+        console.log(data);
+        // this.message = 'Error. Submission failed to store.';
+      }
+    })
+  }
+
+
+
 }

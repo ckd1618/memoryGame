@@ -1,6 +1,17 @@
 let mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
+
+var Books66iSavedSchema = new mongoose.Schema({
+    content: {type: Array, required: true},
+}, {timestamps: true})
+mongoose.model('Books66iSaved', Books66iSavedSchema);
+
+var UserNotesiSchema = new mongoose.Schema({
+    content: {type: Array, required: true},
+}, {timestamps: true})
+mongoose.model('UserNotesi', UserNotesiSchema);
+
 var PostSchema = new mongoose.Schema({
     content: {type: String, required: true, minlength: 10},
     _author: {type: Schema.Types.ObjectId, ref: 'User'}

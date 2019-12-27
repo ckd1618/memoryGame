@@ -1,8 +1,64 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Post = mongoose.model('Post');
+var Books66iSaved = mongoose.model('Books66iSaved');
+var UserNotesi = mongoose.model('UserNotesi');
 var bcrypt = require('bcryptjs');
 module.exports = {
+    sendLoadout(req,res) {
+        var newBooks66iSaved = new Books66iSavedSchema();
+
+
+        res.json(req.body);
+
+        // newBooks66iSaved.content = req.body
+    },
+    sendProjectData(req,res){
+        
+        UserNotesi.findOne({_id: '5e0564e490f3e0271097a13b'}, function (err, data) {
+            data.content = req.body.userNotesi;
+            data.save(function(err) {
+                if (err){
+                    console.log('err');
+                    res.json(err);
+                } else {
+                    console.log('data', data);
+                    console.log('data saved');
+                    res.json(data);
+                }
+            })
+        })
+
+
+
+    },
+    mongoUserNotesi(req,res) {
+        UserNotesi.findById('5e0564e490f3e0271097a13b').exec((err, data) => {
+            if (err) {
+                res.json(err);
+            }else {
+                res.json(data);
+            }
+        });
+    },
+    // sendProjectData: function(req,res){
+    //     console.log(req.session.userId);
+    //     if (req.session.userId != undefined) {
+    //         var newProject = new Project();
+    //         console.log(req.body.project);
+    //         newProject.project = req.body.project;
+    //         newProject._author = req.session.userId;
+    //         newProject.save(function(err) {
+    //             if(err){
+    //                 res.json(err);
+    //             }else {
+    //                 res.json(newProject);
+    //             }
+    //         })
+    //     }else{
+    //         res.json({error: 'You are not authorized!!!!'});
+    //     }
+    // },
     register: function(req,res){
         bcrypt.hash(req.body.password, 8, function(err, hash) {
             if(err){
